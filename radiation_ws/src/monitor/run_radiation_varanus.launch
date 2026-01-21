@@ -1,0 +1,3 @@
+<launch>
+<node pkg="monitor" type="radiation_varanus.py" name="radiation_varanus" output="screen"/>
+</launch>

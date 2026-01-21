@@ -1,0 +1,12 @@
+
+<launch>
+
+<node pkg="monitor" type="agent.py" name="agent" output="screen"/>
+            
+<node pkg="monitor" type="sensor.py" name="sensor" output="screen"/>
+
+<node pkg="monitor" type="navigation.py" name="navigation" output="screen"/>
+
+<node pkg="monitor" type="localisation.py" name="localisation" output="screen"/>
+
+</launch>

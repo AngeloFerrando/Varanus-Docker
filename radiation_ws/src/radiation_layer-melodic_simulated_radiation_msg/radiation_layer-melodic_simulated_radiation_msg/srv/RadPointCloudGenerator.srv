@@ -1,0 +1,6 @@
+string radiation_map_topic
+string height_map_topic
+string radiation_pointcloud_topic
+string scale
+string offset
+---

@@ -1,0 +1,6 @@
+
+<launch>
+
+<node pkg="monitor" type="rvaft_monitor.py" name="rvaft_monitor" output="screen"/>
+
+</launch>

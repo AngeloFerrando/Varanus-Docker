@@ -1,0 +1,9 @@
+
+<launch>
+
+  <node pkg="monitor" type="modelstate_listener.py" name="modelstate_listener" output="screen"/>
+  <node pkg="monitor" type="robot_listener.py" name="robot_listener" output="screen"/>
+  <node pkg="monitor" type="snapshot.py" name="snapshot" output="screen"/>
+  <node pkg="monitor" type="clockNode.py" name="clockNode" output="screen"/>
+
+</launch>
