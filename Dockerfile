@@ -31,7 +31,7 @@ RUN pip3 install reelay
 
 # install VARANUS
 ADD ./libpng12-0_1.2.54-1ubuntu1.1_amd64.deb ./
-RUN git clone https://github.com/autonomy-and-verification/varanus.git
+RUN git clone --branch buchi --single-branch https://github.com/autonomy-and-verification/varanus.git
 RUN pip3 install pyyaml
 RUN add-apt-repository -y ppa:linuxuprising/libpng12
 RUN sh -c 'echo "deb http://dl.cocotec.io/fdr/debian/ fdr release\n" > /etc/apt/sources.list.d/fdr.list'
@@ -77,6 +77,18 @@ RUN apt install libtinfo5
 RUN apt install -y python-yaml
 
 WORKDIR /
+
+# Install SPOT
+RUN wget http://www.lrde.epita.fr/dload/spot/spot-2.12.tar.gz
+RUN tar -xf spot-2.12.tar.gz 
+WORKDIR /spot-2.12
+RUN ./configure --prefix ~/.local
+RUN make
+RUN make install
+
+WORKDIR /
+
+RUN git clone https://github.com/AngeloFerrando/MultiModelPredictiveRuntimeVerification.git
 
 # ADD csp .
 ADD rover_model3.csp ./varanus/inspection-rover-test/
