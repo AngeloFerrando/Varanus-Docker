@@ -51,6 +51,8 @@ if [[ "$USE_GUI" != "0" && -n "${DISPLAY:-}" ]]; then
         echo "Warning: xhost not available; GUI apps may not display."
     fi
 
+    docker_args+=(--env "DISPLAY=$DISPLAY" --env "QT_X11_NO_MITSHM=1")
+    docker_args+=(--volume "/tmp/.X11-unix:/tmp/.X11-unix:rw")
     if command -v xauth >/dev/null 2>&1; then
         if [[ ! -f "$XAUTH_FILE" ]]; then
             xauth_list=$(xauth nlist "${DISPLAY}" 2>/dev/null | sed -e 's/^..../ffff/' || true)
@@ -61,11 +63,9 @@ if [[ "$USE_GUI" != "0" && -n "${DISPLAY:-}" ]]; then
             fi
             chmod a+r "$XAUTH_FILE"
         fi
-        docker_args+=(--env "DISPLAY=$DISPLAY" --env "QT_X11_NO_MITSHM=1")
         docker_args+=(--env "XAUTHORITY=$XAUTH_FILE" --volume "$XAUTH_FILE:$XAUTH_FILE")
-        docker_args+=(--volume "/tmp/.X11-unix:/tmp/.X11-unix:rw")
     else
-        echo "Warning: xauth not available; skipping Xauthority setup."
+        echo "Warning: xauth not available; continuing with X11 socket-only setup."
     fi
 else
     echo "DISPLAY not set or GUI disabled; starting container without X11 bindings."

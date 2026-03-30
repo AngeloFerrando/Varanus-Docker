@@ -28,6 +28,7 @@ RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update
 RUN apt-get install -y python3.8
 RUN git clone https://github.com/autonomy-and-verification-uol/ROSMonitoring
 RUN pip3 install reelay
+RUN apt-get update
 
 # install VARANUS
 ADD ./libpng12-0_1.2.54-1ubuntu1.1_amd64.deb ./
@@ -88,13 +89,15 @@ RUN make install
 
 WORKDIR /
 
-RUN git clone https://github.com/AngeloFerrando/MultiModelPredictiveRuntimeVerification.git
+RUN pip3 install websockets
+
+RUN git clone https://github.com/AngeloFerrando/PredictiveVaranus.git
 
 # ADD csp .
 ADD rover_model3.csp ./varanus/inspection-rover-test/
 ADD rover_defs3.csp ./varanus/inspection-rover-test/
 ADD rover_model3.yaml ./varanus/inspection-rover-test/
-ADD monitor.py ./varanus/varanus-python/
+# ADD monitor.py ./varanus/varanus-python/
 ADD system_interface.py ./varanus/varanus-python/
 
 # default command
